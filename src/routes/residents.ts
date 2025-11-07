@@ -5,8 +5,8 @@ import { auth } from "../auth";
 export const residentsRouter = Router();
 
 residentsRouter.get("/", auth(["surgeon", "admin"]), async (req, res) => {
-  const q = await Resident.find({ active: true }).sort({ name: 1 }).lean();
-  res.json(q);
+  const rows = await Resident.find({ active: true }).sort({ name: 1 }).select("name pgYear active").lean();
+  res.json(rows);
 });
 
 residentsRouter.post("/", auth(["admin"]), async (req, res) => {
