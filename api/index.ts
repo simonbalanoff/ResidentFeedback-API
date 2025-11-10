@@ -4,5 +4,5 @@ import { connectDb } from "../src/db.js"
 import { env } from "../src/env.js"
 
 await connectDb(env.MONGO_URI)
-export const config = { runtime: "nodejs20" }
+export const config = { runtime: "nodejs" }
 export default serverless(app)
