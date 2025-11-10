@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/local.ts",
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json --outDir public",
     "start": "node dist/local.js"
   },
   "dependencies": {
