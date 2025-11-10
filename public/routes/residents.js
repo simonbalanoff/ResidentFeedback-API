@@ -1,0 +1,44 @@
+import { Router } from "express";
+import Resident from "../models/Resident.js";
+import { auth } from "../auth.js";
+export const residentsRouter = Router();
+residentsRouter.get("/", auth(["surgeon", "admin"]), async (req, res) => {
+    const rows = await Resident.find().sort({ name: 1 }).select("name pgYear active").lean();
+    res.json(rows);
+});
+residentsRouter.post("/", auth(["admin"]), async (req, res) => {
+    const { name, pgYear, active } = req.body || {};
+    if (!name || typeof pgYear !== "number")
+        return res.status(400).json({ error: "invalid" });
+    const doc = await Resident.create({ name, pgYear, active: active ?? true });
+    res.status(201).json({ id: doc.id });
+});
+residentsRouter.patch("/:id", auth(["admin"]), async (req, res) => {
+    const { id } = req.params;
+    const { name, pgYear, active } = req.body || {};
+    const update = {};
+    if (name)
+        update.name = name;
+    if (typeof pgYear === "number")
+        update.pgYear = pgYear;
+    if (typeof active === "boolean")
+        update.active = active;
+    const doc = await Resident.findByIdAndUpdate(id, { $set: update }, { new: true });
+    if (!doc)
+        return res.status(404).json({ error: "not_found" });
+    res.json({ id: doc.id });
+});
+residentsRouter.delete("/:id", auth(["admin"]), async (req, res) => {
+    const { id } = req.params;
+    try {
+        const doc = await Resident.findByIdAndDelete(id);
+        if (!doc)
+            return res.status(404).json({ error: "not_found" });
+        res.json({ success: true, id });
+    }
+    catch (err) {
+        console.error("Delete resident error:", err);
+        res.status(500).json({ error: "server_error" });
+    }
+});
+//# sourceMappingURL=residents.js.map

@@ -5,8 +5,8 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch src/local.ts",
-    "build": "tsc -p tsconfig.json",
-    "start": "node dist/local.js"
+    "build": "tsc -p tsconfig.json --outDir public",
+    "start": "node public/local.js"
   },
   "dependencies": {
     "bcryptjs": "2.4.3",
