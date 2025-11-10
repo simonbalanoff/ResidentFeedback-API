@@ -7,5 +7,5 @@
     { "source": "/(.*)", "destination": "src/api/index.ts" }
   ],
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "outputDirectory": "build"
+  "outputDirectory": "public"
 }
