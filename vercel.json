@@ -1,11 +1,9 @@
 {
   "version": 2,
   "functions": {
-    "src/api/index.ts": { "runtime": "nodejs20.x" }
+    "api/index.ts": { "runtime": "nodejs20.x" }
   },
-  "rewrites": [
-    { "source": "/(.*)", "destination": "src/api/index.ts" }
-  ],
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "outputDirectory": "public"
+  "routes": [
+    { "src": "/(.*)", "dest": "api/index.ts" }
+  ]
 }
