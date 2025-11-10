@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { env } from "./env";
+import { env } from "./env.js";
 
 export function auth(requiredRoles?: Array<"surgeon" | "admin">) {
     return (req: Request, res: Response, next: NextFunction) => {

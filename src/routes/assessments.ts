@@ -1,7 +1,7 @@
 import { Router } from "express";
-import Assessment from "../models/Assessment";
-import { auth } from "../auth";
-import { createAssessmentSchema } from "../validate";
+import Assessment from "../models/Assessment.js";
+import { auth } from "../auth.js";
+import { createAssessmentSchema } from "../validate.js";
 
 export const assessmentsRouter = Router();
 

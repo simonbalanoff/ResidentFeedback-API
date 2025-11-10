@@ -1,11 +1,11 @@
 import { Router } from "express";
-import Resident from "../models/Resident";
-import { auth } from "../auth";
+import Resident from "../models/Resident.js";
+import { auth } from "../auth.js";
 
 export const residentsRouter = Router();
 
 residentsRouter.get("/", auth(["surgeon", "admin"]), async (req, res) => {
-  const rows = await Resident.find({ active: true }).sort({ name: 1 }).select("name pgYear active").lean();
+  const rows = await Resident.find().sort({ name: 1 }).select("name pgYear active").lean();
   res.json(rows);
 });
 
@@ -26,4 +26,16 @@ residentsRouter.patch("/:id", auth(["admin"]), async (req, res) => {
   const doc = await Resident.findByIdAndUpdate(id, { $set: update }, { new: true });
   if (!doc) return res.status(404).json({ error: "not_found" });
   res.json({ id: doc.id });
+});
+
+residentsRouter.delete("/:id", auth(["admin"]), async (req, res) => {
+  const { id } = req.params;
+  try {
+    const doc = await Resident.findByIdAndDelete(id);
+    if (!doc) return res.status(404).json({ error: "not_found" });
+    res.json({ success: true, id });
+  } catch (err) {
+    console.error("Delete resident error:", err);
+    res.status(500).json({ error: "server_error" });
+  }
 });

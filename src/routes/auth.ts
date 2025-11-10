@@ -1,12 +1,12 @@
 import { Router } from "express";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
-import { loginSchema, registerSchema, refreshSchema, forgotSchema, resetSchema, changePasswordSchema } from "../validate";
-import { signAccess, signRefresh, verifyToken } from "../tokens";
-import User from "../models/User";
-import RefreshToken from "../models/RefreshToken";
-import PasswordReset from "../models/PasswordReset";
-import { auth } from "../auth";
+import { loginSchema, registerSchema, refreshSchema, forgotSchema, resetSchema, changePasswordSchema } from "../validate.js";
+import { signAccess, signRefresh, verifyToken } from "../tokens.js";
+import User from "../models/User.js";
+import RefreshToken from "../models/RefreshToken.js";
+import PasswordReset from "../models/PasswordReset.js";
+import { auth } from "../auth.js";
 
 export const authRouter = Router();
 
