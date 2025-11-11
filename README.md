@@ -1,5 +1,8 @@
 # Resident Feedback API
 
+> ⚠️ **Public, View-Only — Not Open Source**  
+> Code is provided for evaluation only; no usage or redistribution rights are granted.
+
 A secure REST API for managing surgical assessments between attendings and residents.  
 Built with **Node.js, Express, and MongoDB**, this backend handles authentication, feedback submissions, and role-based access for medical users.
 
