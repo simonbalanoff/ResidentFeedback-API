@@ -32,3 +32,18 @@ assessmentsRouter.get("/", auth(["surgeon","admin"]), async (req, res) => {
     .lean();
   res.json(items);
 });
+
+assessmentsRouter.delete("/:id", auth(["surgeon","admin"]), async (req, res) => {
+  const { id } = req.params;
+  const user = (req as any).user;
+
+  const doc = await Assessment.findById(id);
+  if (!doc) return res.sendStatus(404);
+
+  if (user.role !== "admin" && doc.surgeonId.toString() !== user.sub) {
+    return res.sendStatus(403);
+  }
+
+  await Assessment.deleteOne({ _id: id });
+  return res.sendStatus(204);
+});
